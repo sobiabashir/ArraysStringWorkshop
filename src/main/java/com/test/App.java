@@ -1,7 +1,7 @@
 package com.test;
 import java.util.Scanner;
 
-import static com.test.NameRepository.findAll;
+
 
 public class App
 {
@@ -26,12 +26,7 @@ public class App
 
         System.out.println("Number of names: " + NameRepository.getSize());
 
-        /*System.out.println("All names:");
-        String[] allNames = NameRepository.findAll();
-        for (int i = 0; i < allNames.length; i++) {
-            System.out.println(allNames[i]);
-        }*/
-        disply();
+        displyNames();
 
         // Getting name to find from the user
         System.out.print("Enter a name to find: ");
@@ -50,11 +45,11 @@ public class App
         if (added) {
             System.out.println("Name added successfully: " + nameToAdd);
             System.out.println("After adding list is below:");
-            disply();
+            displyNames();
         } else {
             System.out.println("Name already exists: " + nameToAdd);
             System.out.println("After removing list is below:");
-            disply();
+            displyNames();
         }
 
         NameRepository.clear();
@@ -63,7 +58,7 @@ public class App
 
 
     }
-    public static void disply()
+    public static void displyNames()
     {
         System.out.println("All names:");
         String[] allNames = NameRepository.findAll();
