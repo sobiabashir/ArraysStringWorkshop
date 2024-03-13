@@ -1,5 +1,5 @@
 package com.test;
-
+import java.util.Arrays;
 
 public class NameStyle {
 
@@ -9,9 +9,12 @@ public class NameStyle {
         String[] names = new String[2]; // Array to store first name and last name
 
         // Find the index of the first whitespace
+
         int indexForSpace = findSpace(fullName);
         // Extract first name and last name using substring
-        names[0] = fullName.substring(0, indexForSpace); // First name
+
+
+        names[0] = fullName.substring(0,indexForSpace); // First name
         names[1] = fullName.substring(indexForSpace + 1); // Last name
         if(names[1].isEmpty())
         {
