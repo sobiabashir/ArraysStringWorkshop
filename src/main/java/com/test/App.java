@@ -4,94 +4,88 @@ import java.util.Scanner;
 
 
 
-public class App
-{
-    public static void main( String[] args )
+public class App {
+    public static void main(String[] args) {
+        ////////////////////Part 1////////////////
+        AddFormateNmae();
+
+        ///////////part 2 and 3///////////
+        AddNameToArray();
+        SearchNameFromArray();
+
+        //////////////////Part 3 and 4////////////
+        SearchNameFromFirstNmae();
+        SearchNameFromLastNmae();
+        UpdateName();
+        RemovedName();
+    }
+
+    public static void AddFormateNmae()
     {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the number of names you want to store: ");
-        int numOfNames = scanner.nextInt();
-        scanner.nextLine();
-
-        NameFormatter nameFormatter = new NameFormatter();
-        String[] formatedOfName = new String[numOfNames];
-        // Reading names from the user
-        //System.out.print("Enter names separated by commas: ");
-        String namesListOFUser = scanner.nextLine();
-
-
-        for (int i = 0; i < numOfNames; i++)
-        {
-            System.out.print("Enter name " + (i + 1) + ": ");
-            String fullName = scanner.nextLine();
-            formatedOfName[i] = Arrays.toString(nameFormatter.formatName(fullName));
-            formatedOfName[i]=formatedOfName[i].trim();
+        String[] formatOfNames = NameFormatter.formatName("sobia bashir");
+        for(String formatOfName:formatOfNames)
+            System.out.print(formatOfName);
+    }
+    public  static void AddNameToArray()
+    {
+        System.out.println();
+        String nameToAdd="sobia asim";
+        boolean added = NameRepository.add("Sobia Asim");
+        if (added) {
+            System.out.println("Name added successfully: " +nameToAdd );
+        } else {
+            System.out.println("Name already exists or is invalid: " + nameToAdd);
         }
+    }
 
-        System.out.println("\nStored formatted names:");
-        for (String name : formatedOfName) {
-            System.out.println(name);
-        }
-
-
-        // Splitting the input string into an array of names
-       // String[] initialNames = namesListOFUser.split(",");
-
-        // Trim each name to remove leading and trailing whitespaces
-       // for (int i = 0; i < initialNames.length; i++)
-        //{
-          //  initialNames[i] = initialNames[i].trim();
-        //}
-
-
-
-        NameRepository.setNames(formatedOfName);
-
-        System.out.println("Number of names: " + NameRepository.getSize());
-
-        displyNames();
-
-        // Getting name to find from the user
-        System.out.print("Enter a name to find: ");
-        String nameToFind = scanner.nextLine();
-        /////// conver the user input according to the defined formate [firstname, ,lastname]
-        nameToFind=Arrays.toString(nameFormatter.formatName(nameToFind));
-        String foundName = NameRepository.find(nameToFind);
+    public static void SearchNameFromArray()
+    {
+        String foundName = NameRepository.find("SOBIA ASIM");
         if (foundName != null) {
             System.out.println("Name found: " + foundName);
         } else {
-            System.out.println("Name not found: " + nameToFind);
+            System.out.println("Name not found: " );
         }
-
-        // Getting name to add from the user
-        System.out.print("Enter a name to add: ");
-        String nameToAdd = scanner.nextLine();
-        nameToAdd=Arrays.toString(nameFormatter.formatName(nameToAdd));
-
-        boolean added = NameRepository.add(nameToAdd);
-        if (added) {
-            System.out.println("Name added successfully: " + nameToAdd);
-            System.out.println("After adding list is below:");
-            displyNames();
-        } else {
-            System.out.println("Name already exists: " + nameToAdd);
-            displyNames();
-        }
-
-        NameRepository.clear();
-        System.out.println("After clearing, number of names: " + NameRepository.getSize());
-
-
-
     }
-    public static void displyNames()
+
+    public  static void SearchNameFromLastNmae()
     {
-        System.out.println("All names:");
-        String[] allNames = NameRepository.findAll();
-        for (int i = 0; i < allNames.length; i++) {
-            System.out.println(allNames[i]);
+        String[] namesByLastName = NameRepository2.findByLastName("rasheed");
+        for(String name:namesByLastName) {
+            System.out.println(name);
         }
     }
+    public  static void SearchNameFromFirstNmae()
+    {
+        String[] namesByFirstName = NameRepository2.findByFirstName("sadia");
+        for(String name:namesByFirstName) {
+            System.out.println(name);
+        }
+    }
+    public static void UpdateName()
+    {
+        String name1="sobia bashir";
+        String replaceName="SOBIA BASHIR";
+        boolean Isupdated = NameRepository2.update("sadia rasheed","SADIA RASHeed");
+        // Check if the name was successfully updated or not
+        if (Isupdated) {
+            System.out.println("Name updated successfully from '" + name1 + "' to '" + replaceName + "'.");
+            for(String name:NameRepository2.names)
+                System.out.println(name);
+        } else {
+            System.out.println("Failed to update name. Either the original name was not found or the updated name already exists.");
+        }
+    }
+    public static void RemovedName()
+    {
+        boolean removed = NameRepository2.remove(" ");
 
+// Check if the name was removed or not
+        if (removed) {
+            System.out.println("Name");
+        } else {
+            System.out.println("Failed to remove name");
+        }
+
+    }
 }

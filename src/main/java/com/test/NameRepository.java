@@ -17,23 +17,36 @@ public class NameRepository {
     public static String[] findAll() {
         return Arrays.copyOf(names, names.length);
     }
+
     public static String find(final String fullName) {
-        for (int i = 0; i < names.length; i++) {
-            if (names[i].equals(fullName)) {
-                return names[i];
+        for (String name : names) {
+            if (name.equalsIgnoreCase(fullName)) {
+                return name;
             }
         }
         return null;
     }
     public static boolean add(final String fullName) {
-        for (int i = 0; i < names.length; i++) {
-            if (names[i].equals(fullName)) {
+        String foundFulName=find(fullName);
+        if(foundFulName!=null)
+        {
+            return false;
+        }
+        // Check if the fullName already exists in the array
+        for (String name : names) {
+            if (name.equalsIgnoreCase(fullName)) {
                 return false;
             }
         }
-        // Extend array and add the new name
-        names = Arrays.copyOf(names, names.length + 1);
-        names[names.length - 1] = fullName;
+        String[] updatedNames = Arrays.copyOf(names, names.length + 1);
+        updatedNames[updatedNames.length - 1] = fullName;
+        names = updatedNames; // Update the reference to the new array
+
         return true;
     }
+
+
+
+
+
 }
